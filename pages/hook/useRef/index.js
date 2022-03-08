@@ -1,9 +1,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Effect from './Effect'
+import Child from './Child'
 
 ReactDOM.render(
-    <Effect></Effect>,
+    <Child></Child>,
     document.getElementById('root')
 )
