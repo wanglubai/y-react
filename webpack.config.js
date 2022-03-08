@@ -8,7 +8,7 @@ const pageName = process.env.PAGE_NAME;
 const moduleName = process.env.MODULES;
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     cache: true,
 
     entry: {

@@ -1,8 +1,6 @@
 import React, { useReducer } from "react";
 
 function deal(vo, type) {
-    console.log(type);
-
     switch (type) {
         case 'increment':
             return { count: vo.count -= 1, '-': type };
@@ -10,6 +8,18 @@ function deal(vo, type) {
             return { count: vo.count += 1, '+': type };
     }
 }
+
+// 模拟
+// let vo = null;
+// function useReducer(call, initvo) {
+//     vo = vo || initvo;
+//     function dispatch(param) {
+//         vo = call(vo, param);
+//         Child();
+//     }
+//     return [vo, dispatch];
+// }
+
 function Child() {
     const [vo, dispatch] = useReducer(deal, { count: 0 });
 
