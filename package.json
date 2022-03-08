@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx webpack serve --open",
+    "start": "npx webpack serve --open --color",
     "build": "npx webpack",
     "sl": "node ./build/cli.js serve",
     "bl": "node ./build/cli.js build",
@@ -27,6 +27,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "babel-loader": "^8.2.3",
+    "core-js": "^3.21.1",
     "css-loader": "^6.7.0",
     "html-webpack-plugin": "^5.5.0",
     "inquirer": "^8.2.0",
@@ -40,6 +41,9 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
+    "@better-scroll/core": "^2.4.2",
+    "@better-scroll/pull-down": "^2.4.2",
+    "@better-scroll/pull-up": "^2.4.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   }

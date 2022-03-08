@@ -16,6 +16,7 @@ module.exports = {
         'react': ['react'],
         'react-dom': ['react-dom']
     },
+
     output: {
         clean: true,
         path: path.resolve(__dirname, `dist/${pageName}`),
@@ -24,7 +25,6 @@ module.exports = {
     module: {
         rules: [{
             test: /\.less$/,
-            exclude: /node_modules/,
             use: [{
                 loader: "style-loader" // creates style nodes from JS strings
             }, {
@@ -38,13 +38,18 @@ module.exports = {
             exclude: /node_modules/
         }]
     },
+    resolve: {
+        alias: {}
+    },
     plugins: [new HtmlWebpackPlugin({
         filename: 'index.html',
         template: `./public/index.html`
     }),
-    new BundleAnalyzerPlugin()],
+        // new BundleAnalyzerPlugin()
+    ],
     devServer: {
         port: 90,
+        hot: true,
         compress: true,
     }
 }
