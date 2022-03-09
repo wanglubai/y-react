@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 function Child() {
+    console.log('Child()');
+
     const [v, setv] = useState(0);
     const [obj, setObj] = useState({ old: 1 });
     const [fun, setFun] = useState(() => {
