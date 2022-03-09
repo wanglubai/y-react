@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Grandson from './Grandson';
 import context from "./context";
-
+import mainContext from "./main-context";
 
 function Child() {
     console.log('---------------------------');
@@ -15,10 +15,16 @@ function Child() {
 
     }, [])
 
+    function call(e) {
+        console.log('call',e);
+    }
+
     return (
         <context.Provider value={v}>
-            <h1>{v}</h1>
-            <Grandson />
+            <mainContext.Provider value={{ main: v, emit: call }}>
+                <h1> {v}</h1>
+                <Grandson />
+            </mainContext.Provider>
         </context.Provider >
     )
 }

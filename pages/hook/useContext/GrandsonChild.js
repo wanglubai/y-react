@@ -1,19 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import context from "./context";
-
+import mainContext from './main-context'
 function GrandsonChild() {
-    console.log('GrandsonChild');
-    let v = useContext(context);
+    console.log('GrandsonChild()');
 
-    const [p,setp] = useState(v);
-    
-    useEffect(()=>{
-        console.log('GrandsonChild-useEffect');
-    })
-    // setp(v+1)
+    let v = useContext(context);
+    let { main, emit } = useContext(mainContext);
+
+    useEffect(() => {
+        setInterval(() => {
+            emit(v + 'GrandsonChild')
+        }, 2000);
+    }, [])
+
     return (
         <>
-            <h3>{v}--{p}</h3>
+            <h3>'GrandsonChild' {v} {main}</h3>
         </>
     )
 }

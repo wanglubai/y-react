@@ -4,13 +4,9 @@ import context from "./context";
 import GrandsonChild from "./GrandsonChild";
 
 function Grandson() {
-    console.log('Grandson');
+    console.log('Grandson()');
+
     const v = useContext(context);
-
-    useEffect(()=>{
-        console.log('Grandson-useEffect');
-    })
-
     return (
         <>
             <h2>'Grandson' {v}</h2>
