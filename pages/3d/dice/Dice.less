@@ -1,0 +1,99 @@
+body {
+    background-color: black;
+}
+
+.dice {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 100px auto;
+    padding: 0;
+    list-style: none;
+    transform-style: preserve-3d;
+    transform: rotateX(13deg) rotateY(13deg);
+    cursor: pointer;
+}
+
+.item {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    background-color: rgba(250, 250, 250, .4);
+    border-radius: 15px;
+    line-height: 100px;
+    text-align: center;
+    backface-visibility: visible;
+
+    div {
+        box-sizing: border-box;
+        border-radius: 20px;
+        border: 1px solid rgba(200, 200, 200, 1);
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+.front {
+    div {
+        background-color: rgba(255, 255, 255, 1);
+        // background-image: url('./a.png');
+        background-size: cover;
+    }
+
+    transform: translateZ(50px);
+}
+
+.back {
+    div {
+        background-color: rgba(255, 255, 255, 1);
+        // background-image: url('./a.png');
+        background-size: cover;
+    }
+
+    transform: rotateY(180deg) translateZ(50px);
+}
+
+.right {
+    div {
+        background-color: rgba(255, 255, 255, 1);
+        // background-image: url('./a.png');
+        background-size: cover;
+    }
+
+    transform: rotateY(90deg) translateZ(50px);
+}
+
+.left {
+    div {
+        background-color: rgba(255, 255, 255, 1);
+        // background-image: url('./a.png');
+        background-size: cover;
+    }
+
+    transform: rotateY(-90deg) translateZ(50px);
+}
+
+.top {
+    div {
+        background-color: rgba(255, 255, 255, 1);
+        // background-image: url('./a.png');
+        background-size: cover;
+    }
+
+    transform: rotateX(90deg) translateZ(50px);
+}
+
+.bottom {
+    div {
+        background-color: rgba(255, 255, 255, 1);
+        // background-image: url('./a.png');
+        background-size: cover;
+    }
+
+    transform: rotateX(-90deg) translateZ(50px);
+}

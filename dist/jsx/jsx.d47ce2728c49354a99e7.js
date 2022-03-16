@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunky_react=self.webpackChunky_react||[]).push([[989],{948:(e,t,r)=>{var c=r(294);r(935).render(c.createElement("h1",null,"111"),document.getElementById("root"))}},e=>{e.O(0,[427],(()=>(948,e(e.s=948)))),e.O()}]);

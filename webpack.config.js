@@ -2,6 +2,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
     .BundleAnalyzerPlugin;
 
+const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 const pageName = process.env.PAGE_NAME;
@@ -45,6 +46,11 @@ module.exports = {
         filename: 'index.html',
         template: `./public/index.html`
     }),
+    new CopyPlugin({
+        patterns: [
+          { from: "model", to: "model" },
+        ],
+      })
         // new BundleAnalyzerPlugin()
     ],
     devServer: {

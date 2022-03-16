@@ -1,34 +1,26 @@
-import React, { useCallback, useState } from "react";
+import React, { useMemo, useState } from "react";
 
 function Child() {
-    const [state, setState] = useState(0);
-    const [count, setCount] = useState(0);
+    console.log('Child()');
 
-    const stateFun = useCallback(() => {
-        console.log(`${state} state change`);
-        return `${state} state change ${new Date().getSeconds()}s`
-    }, [state])
+    const [s, sets] = useState(0)
+    const [callBack, setCallBack] = useState(2)
 
-    const countFun = useCallback(() => {
-        console.log(`${count} count change`);
-        return `${count} count change ${new Date().getSeconds()}s`
-    }, [count])
-
-    const emptyCall = useCallback(() => {
-        console.log(`empty change`);
-        return `empty change ${new Date().getSeconds()}s`;
-    }, [])
-
+    function delCallback() {
+        console.log('delCallback');
+        let s = '';
+        for (var i = 0; i < callBack; i++) {
+            s += i;
+        }
+        return s;
+    }
+    const delCallbackFun = useMemo(delCallback, [callBack])
 
     return (
         <>
-            <h1>{state} [state]</h1>
-            <h4>{stateFun()}</h4>
-            <button onClick={() => { setState(state + 1) }}>setState 按钮</button>
-            <h1>{count} [count]</h1>
-            <h4>{countFun()}</h4>
-            <button onClick={() => { setCount(count + 1) }}>setCount 按钮</button>
-            <h4>{emptyCall()}</h4>
+            <h1>{delCallbackFun}</h1>
+            <button onClick={() => { sets(v => v + 1) }}>----s---</button>
+            <button onClick={() => { setCallBack(v => v + 2) }}>---callBack---</button>
         </>
     )
 }
