@@ -4,7 +4,10 @@ import { GLTFLoader } from '../libs/jsm/loaders/GLTFLoader';
 import { OrbitControls } from "../libs/jsm/controls/OrbitControls"
 
 import './Dice.less'
-function Dice() {
+function Dice(prpos) {
+    let camera, scene, renderer, model, url, z
+    url = prpos.url || './model/dice/scene.gltf';
+    z = prpos.z || 10;
     const d3 = useRef(null);
     function load() {
         return new Promise((
@@ -12,7 +15,9 @@ function Dice() {
         ) => {
             const loader = new GLTFLoader();
             loader.load(
-                './model/girl/scene.gltf',
+                url,
+                // './model/girl/scene.gltf',
+                // './model/dice/scene.gltf',
                 (gltf) => {
                     resolve(gltf);
                 },
@@ -25,16 +30,24 @@ function Dice() {
             );
         })
     }
-    let camera, scene, renderer, model
+
     function init3D() {
+
         const w = d3.current.offsetWidth;
         const h = d3.current.offsetHeight;
-        console.log(w,h);
+        console.log(w, h);
         camera = new THREE.PerspectiveCamera(70, w / h, 1, 1000);
-        camera.position.set(200, 0, 250)
+        camera.position.set(0, 0, z)
 
         scene = new THREE.Scene();
         scene.add(model);
+
+        const light = new THREE.AmbientLight(0xffffff); // soft white light
+        scene.add(light);
+
+        const light1 = new THREE.PointLight(0xffffff, 1, 100);
+        light1.position.set(0, 0, 50);
+        scene.add(light1);
 
 
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -59,6 +72,7 @@ function Dice() {
     useEffect(() => {
         load().then((e) => {
             model = e.scene;
+            model.scale.set(1, 1, 1)
             init3D();
         })
     }, []);
