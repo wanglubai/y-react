@@ -36,7 +36,7 @@ function Dice(prpos) {
         const w = d3.current.offsetWidth;
         const h = d3.current.offsetHeight;
         console.log(w, h);
-        camera = new THREE.PerspectiveCamera(70, w / h, 1, 1000);
+        camera = new THREE.PerspectiveCamera(70, w / h, .5, 1000);
         camera.position.set(0, 0, z)
 
         scene = new THREE.Scene();
@@ -46,7 +46,7 @@ function Dice(prpos) {
         scene.add(light);
 
         const light1 = new THREE.PointLight(0xffffff, 1, 100);
-        light1.position.set(0, 0, 50);
+        light1.position.set(0, 0, 10);
         scene.add(light1);
 
 
@@ -59,6 +59,8 @@ function Dice(prpos) {
 
         let orbit = new OrbitControls(camera, renderer.domElement);
         orbit.enableZoom = false;
+        let orbit1 = new OrbitControls(light1, renderer.domElement);
+        orbit1.enableZoom = false;
 
         animate();
     }
