@@ -4,6 +4,7 @@ import { GLTFLoader } from '../libs/jsm/loaders/GLTFLoader';
 import { OrbitControls } from "../libs/jsm/controls/OrbitControls"
 
 import './Dice.less'
+
 function Dice(prpos) {
     let camera, scene, renderer, model, url, z
     url = prpos.url || './model/dice/scene.gltf';
@@ -16,8 +17,6 @@ function Dice(prpos) {
             const loader = new GLTFLoader();
             loader.load(
                 url,
-                // './model/girl/scene.gltf',
-                // './model/dice/scene.gltf',
                 (gltf) => {
                     resolve(gltf);
                 },
@@ -32,7 +31,6 @@ function Dice(prpos) {
     }
 
     function init3D() {
-
         const w = d3.current.offsetWidth;
         const h = d3.current.offsetHeight;
         console.log(w, h);
@@ -42,13 +40,12 @@ function Dice(prpos) {
         scene = new THREE.Scene();
         scene.add(model);
 
-        const light = new THREE.AmbientLight(0xffffff); // soft white light
-        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xffffff));
 
-        const light1 = new THREE.PointLight(0xffffff, 1, 100);
-        light1.position.set(0, 0, 10);
-        scene.add(light1);
-
+        const pointLight = new THREE.PointLight(0xffffff, 1, 50);
+        pointLight.position.set(0, 0, 10);
+        pointLight.castShadow = true;
+        scene.add(pointLight);
 
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(w, h);
@@ -59,16 +56,14 @@ function Dice(prpos) {
 
         let orbit = new OrbitControls(camera, renderer.domElement);
         orbit.enableZoom = false;
-        let orbit1 = new OrbitControls(light1, renderer.domElement);
+        let orbit1 = new OrbitControls(pointLight, renderer.domElement);
         orbit1.enableZoom = false;
 
         animate();
     }
     function animate() {
         requestAnimationFrame(animate);
-        // model.rotation.x =100;
         model.rotation.y += 0.01;
-
         renderer.render(scene, camera);
     }
     useEffect(() => {
