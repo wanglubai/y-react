@@ -1,56 +1,91 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import * as THREE from 'three';
+import { GLTFLoader } from "./libs/jsm/loaders/GLTFLoader"
+import { RoomEnvironment } from './libs/jsm/environments/RoomEnvironment.js';
+import { TrackballControls } from './libs/jsm/controls/TrackballControls'
 import './Dice.less'
+function load(url_) {
+    return new Promise((resolve, reject) => {
+        const loader = new GLTFLoader();
+        loader.load(url_, (v) => resolve({ s: true, v: v }), (xhr) => console.log(`${(xhr.loaded / xhr.total * 100)}% loaded`), () => resolve({ s: false }))
+    })
+}
 
 function Dice() {
-    console.log('dice');
-    let baseX = 13, baseY = 13;
+    const [d3, setD3] = useState(false)
+    const [isDestroy, setDestroy] = useState(false);
 
-    const dice = useRef(null);
+    const conteiner = useRef(null);
 
-    function initSetInterval() {
-        setInterval(() => {
-            baseX += 60;
-            baseY += 10;
-            console.log(baseX);
-            console.log(baseY);
-            dice.current.style.transform = `rotateX(${baseX % 360}deg) rotateY(${baseY % 360})}deg)`;
-        }, 1000);
+    async function init() {
+        const res = await load('./model/dice/dice.gltf');
+
+        let [model, camera, scene, renderer] = [null, null, null, null];
+
+        if (res.s) {
+            model = res.v.scene;
+            const temp = model.children[0];
+            temp.material.setValues({ color: 0x040305, metalness: .4, roughness: .1 })
+            const s = 1.2;
+            model.scale.set(s, s, s)
+            model.position.set(0, 0, 0)
+        } else {
+            return;
+        }
+
+        const w = conteiner.current.offsetWidth;
+        const h = conteiner.current.offsetHeight;
+
+        camera = new THREE.PerspectiveCamera(30, w / h, 1, 100);
+        camera.position.set(0, 0, 40);
+        camera.lookAt(0, 0, 0);
+
+        scene = new THREE.Scene;
+
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(w, h);
+
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+
+        const pointLight = new THREE.PointLight(0xfff, 10);
+
+        scene.add(model);
+        scene.add(pointLight);
+        scene.add(new THREE.AmbientLight(0xffffff, 3));
+        conteiner.current.appendChild(renderer.domElement);
+
+        let controls = new TrackballControls(camera, renderer.domElement);
+        controls.noZoom = true;
+
+        setD3(true);
+
+        const update = () => renderer.render(scene, camera);
+        const ani = () => {
+            model.rotation.y += 0.03;
+            controls && controls.update();
+
+            const [x, y, z] = [...camera.position]
+            pointLight.position.set(x, y + 10, z - 20);
+            update();
+            if (isDestroy) return;
+            requestAnimationFrame(ani);
+        }
+        ani();
+
     }
-    function init() {
-        dice.current.addEventListener('mousedown', e => {
-            let rotateX = e.clientX;
-            let rotateY = e.clientY;
-            let move = e => {
-                dice.current.style.transform = `rotateX(${baseX - (((e.clientY - rotateY)) % 360)}deg) rotateY(${baseY + (((e.clientX - rotateX)) % 360)
-                    }deg)`;
-            };
-            let up = e => {
-                baseX = baseX - (((e.clientY - rotateY) / 2) % 360);
-                baseY = baseY + (((e.clientX - rotateX) / 2) % 360);
-                document.removeEventListener('mousemove', move);
-                document.removeEventListener('mouseup', up);
-            };
-            document.addEventListener('mousemove', move);
-            document.addEventListener('mouseup', up);
-        });
-        document.addEventListener('selectstart', e => e.preventDefault());
-    }
+
     useEffect(() => {
-        init();
-        // initSetInterval();
+        const destroy = init();
+        return () => {
+            console.log('销毁');
+            setDestroy(true);
+        }
     }, [])
 
-    return (
-        <>
-            <div className="dice" ref={dice}>
-                <div className="item front"><div className="">⚽️</div></div>
-                <div className="item back"><div className="">⚽️⚽️</div></div>
-                <div className="item right"><div className="">⚽️⚽️⚽️</div></div>
-                <div className="item left"><div className="">⚽️⚽️⚽️⚽️</div></div>
-                <div className="item top"><div className="">⚽️⚽️⚽️⚽️⚽️</div></div>
-                <div className="item bottom"><div className="">⚽️⚽️⚽️⚽️⚽️⚽️</div></div>
-            </div>
-        </>
-    )
+    return (<div className="dice">
+        <div className="dice-conteiner" ref={conteiner}></div>
+        {d3 ? null : <div className="dice-default">default</div>}
+    </div>)
 }
 export default Dice;
