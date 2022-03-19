@@ -1,0 +1,11 @@
+Model Information:
+* title:	D20-Gold Edition [FREE]
+* source:	https://sketchfab.com/3d-models/d20-gold-edition-free-fde4f1f7e93f4ba0bf632613188eb4bd
+* author:	Don42 (https://sketchfab.com/Don42)
+
+Model License:
+* license type:	CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)
+* requirements:	Author must be credited. Modified versions must have the same license. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "D20-Gold Edition [FREE]" (https://sketchfab.com/3d-models/d20-gold-edition-free-fde4f1f7e93f4ba0bf632613188eb4bd) by Don42 (https://sketchfab.com/Don42) licensed under CC-BY-SA-4.0 (http://creativecommons.org/licenses/by-sa/4.0/)

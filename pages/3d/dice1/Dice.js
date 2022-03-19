@@ -69,7 +69,8 @@ function Dice(prpos) {
     useEffect(() => {
         load().then((e) => {
             model = e.scene;
-            model.scale.set(1, 1, 1)
+            const s=prpos.s||1;
+            model.scale.set(s,s,s)
             init3D();
         })
     }, []);
