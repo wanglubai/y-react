@@ -34,7 +34,7 @@ module.exports = {
                 loader: "less-loader" // compiles Less to CSS
             }]
         }, {
-            test: /\.(js|jsx)$/,
+            test: /\.(js|jsx|ts|tsx)$/,
             loader: 'babel-loader',
             exclude: /node_modules/
         }]
