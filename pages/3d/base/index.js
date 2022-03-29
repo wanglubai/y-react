@@ -1,9 +1,12 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Child from './Child.js'
+import Dice from './Child'
 
 ReactDOM.render(
-    <Child></Child>,
+    <div className='c'>
+        <Dice />
+    </div>,
     document.getElementById('root')
-)
+);
+
+

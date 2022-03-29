@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as THREE from 'three';
-import { GLTFLoader } from "./libs/jsm/loaders/GLTFLoader"
-import { RoomEnvironment } from './libs/jsm/environments/RoomEnvironment.js';
-import { TrackballControls } from './libs/jsm/controls/TrackballControls'
+import { GLTFLoader } from "../libs/jsm/loaders/GLTFLoader"
+import { RoomEnvironment } from '../libs/jsm/environments/RoomEnvironment.js';
+import { TrackballControls } from '../libs/jsm/controls/TrackballControls'
 import './Dice.less'
 function load(url_) {
     return new Promise((resolve, reject) => {
